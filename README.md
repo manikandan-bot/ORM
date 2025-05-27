@@ -1,13 +1,11 @@
 # Ex03 Django ORM Web Application
-## Date: 01-5-2025
-
+## Date: 05-5-2025
 
 ## AIM
 To develop a Django application to store and retrieve data from a Movies Database using Object Relational Mapping(ORM).
 
 ## ENTITY RELATIONSHIP DIAGRAM
-
-![alt text](image-1.png)
+![alt text](image-2.png)
 
 ## DESIGN STEPS
 
@@ -24,35 +22,36 @@ Enter the code for admin.py and models.py
 Execute Django admin and create details for 10 books
 
 ## PROGRAM
-
+```
 admin.py
-```
+
 from django.contrib import admin
-from .models import bankloan,bankloanAdmin
-admin.site.register(bankloan,bankloanAdmin)
-```
-model.py
-```
+from .models import Movie
+
+class MovieAdmin(admin.ModelAdmin):
+    list_display = ('movie_id', 'title', 'genre', 'release_year', 'director', 'rating')
+
+admin.site.register(Movie, MovieAdmin)
+
+models.py
+
 from django.db import models
 
-from django.contrib import admin
+class Movie(models.Model):
+    movie_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    genre = models.CharField(max_length=50)
+    release_year = models.IntegerField()
+    director = models.CharField(max_length=100)
+    rating = models.FloatField()
 
-class bankloan(models.Model):
-    Loan_ID=models.IntegerField(primary_key=True)
-    Loan_Type=models.CharField(max_length=30)
-    Loan_Amt=models.IntegerField()
-    cust_accno=models.IntegerField()
-    cust_name=models.CharField(max_length=30)
+    def __str__(self):
+        return self.title
 
-class bankloanAdmin(admin.ModelAdmin):
-    list_display=('Loan_ID','Loan_Type','Loan_Amt','cust_accno','cust_name')
 ```
 
-
-
 ## OUTPUT
-
-![alt text](image.png)
+![alt text](<Screenshot 2025-05-27 153835.png>)
 
 
 ## RESULT
